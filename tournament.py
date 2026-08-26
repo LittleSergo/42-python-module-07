@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from ex0 import FlameFactory, AquaFactory, CreatureFactory
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
 from ex2 import (
@@ -10,6 +12,17 @@ from ex2 import (
 
 
 def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:
+    if len(opponents) != 2:
+        raise ValueError("battle() expects exactly 2 opponents")
+    if len(opponents[0]) != 2 or len(opponents[1]) != 2:
+        raise ValueError("Each opponent must be a (factory, strategy) tuple")
+    for i in range(2):
+        if not isinstance(opponents[i][0], CreatureFactory) or not isinstance(
+            opponents[i][1], BattleStrategy
+        ):
+            raise ValueError(
+                "Each opponent must be a (factory, strategy) tuple"
+            )
     opponent_1 = opponents[0][0].create_base()
     strategy_1 = opponents[0][1]
     opponent_2 = opponents[1][0].create_base()
@@ -33,11 +46,11 @@ def tournament(
             for j in range(i + 1, oppon_num):
                 print()
                 battle([opponents[i], opponents[j]])
-    except InvalidStrategyError as e:
+    except (InvalidStrategyError, ValueError) as e:
         print(f"Battle error, aborting tournament: {e}")
 
 
-if __name__ == "__main__":
+def main() -> None:
     flame_f = FlameFactory()
     aqua_f = AquaFactory()
     heal_f = HealingCreatureFactory()
@@ -57,3 +70,7 @@ if __name__ == "__main__":
         "[ (Aquabub+Normal), (Healing+Defensive), (Transform+Aggressive) ]"
     )
     tournament([(aqua_f, norm_s), (heal_f, def_s), (transform_f, aggres_s)])
+
+
+if __name__ == "__main__":
+    main()

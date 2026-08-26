@@ -6,8 +6,8 @@ class Sproutling(Creature, HealCapability):
     def attack(self) -> str:
         return f"{self._name.capitalize()} uses Vine Whip!"
 
-    def heal(self, target: Creature) -> str:
-        if self == target:
+    def heal(self, target: Creature | None = None) -> str:
+        if not target or self == target:
             return f"{self._name} heals itself for a small amount"
         else:
             return f"{self._name} heals '{str(target)}' for a small amount"

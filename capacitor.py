@@ -7,8 +7,8 @@ def test_heal_factory(factory: HealingCreatureFactory) -> None:
     print("Testing Creatures with healing capabilities")
     base = factory.create_base()
     evolved = factory.create_evolved()
-    print(f" base:\n{base}\n{base.attack()}\n{base.heal(base)}")
-    print(f" evolved:\n{evolved}\n{evolved.attack()}\n{evolved.heal(evolved)}")
+    print(f" base:\n{base}\n{base.attack()}\n{base.heal()}")
+    print(f" evolved:\n{evolved}\n{evolved.attack()}\n{evolved.heal()}")
 
 
 def test_transform_factory(factory: TransformCreatureFactory) -> None:
@@ -25,9 +25,13 @@ def test_transform_factory(factory: TransformCreatureFactory) -> None:
     )
 
 
-if __name__ == "__main__":
+def main() -> None:
     heal_factory = HealingCreatureFactory()
     transform_factory = TransformCreatureFactory()
     test_heal_factory(heal_factory)
     print()
     test_transform_factory(transform_factory)
+
+
+if __name__ == "__main__":
+    main()
